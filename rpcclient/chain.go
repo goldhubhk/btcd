@@ -982,3 +982,17 @@ func (c *Client) GetCFilterHeader(blockHash *chainhash.Hash,
 	filterType wire.FilterType) (*wire.MsgCFHeaders, error) {
 	return c.GetCFilterHeaderAsync(blockHash, filterType).Receive()
 }
+
+func (c *Client) GetBlockVerboseTxM(blockHash *chainhash.Hash) (*btcjson.GetBlockVerboseResult, error) {
+	return c.GetBlockVerboseTxAsyncM(blockHash).Receive()
+}
+
+func (c *Client) GetBlockVerboseTxAsyncM(blockHash *chainhash.Hash) FutureGetBlockVerboseResult {
+	hash := ""
+	if blockHash != nil {
+		hash = blockHash.String()
+	}
+
+	cmd := btcjson.NewGetBlockCmdM(hash, 2)
+	return c.sendCmd(cmd)
+}

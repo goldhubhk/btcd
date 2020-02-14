@@ -795,7 +795,7 @@ func init() {
 	MustRegisterCmd("decodescript", (*DecodeScriptCmd)(nil), flags)
 	MustRegisterCmd("getaddednodeinfo", (*GetAddedNodeInfoCmd)(nil), flags)
 	MustRegisterCmd("getbestblockhash", (*GetBestBlockHashCmd)(nil), flags)
-	MustRegisterCmd("getblock", (*GetBlockCmd)(nil), flags)
+	//MustRegisterCmd("getblock", (*GetBlockCmd)(nil), flags)
 	MustRegisterCmd("getblockchaininfo", (*GetBlockChainInfoCmd)(nil), flags)
 	MustRegisterCmd("getblockcount", (*GetBlockCountCmd)(nil), flags)
 	MustRegisterCmd("getblockhash", (*GetBlockHashCmd)(nil), flags)
@@ -837,4 +837,17 @@ func init() {
 	MustRegisterCmd("verifychain", (*VerifyChainCmd)(nil), flags)
 	MustRegisterCmd("verifymessage", (*VerifyMessageCmd)(nil), flags)
 	MustRegisterCmd("verifytxoutproof", (*VerifyTxOutProofCmd)(nil), flags)
+	MustRegisterCmd("getblock", (*GetBlockCmdM)(nil), flags)
+}
+
+type GetBlockCmdM struct {
+	Hash    string
+	Verbose *int `jsonrpcdefault:"1"`
+}
+
+func NewGetBlockCmdM(hash string, verbose int) *GetBlockCmdM {
+	return &GetBlockCmdM{
+		Hash:    hash,
+		Verbose: &verbose,
+	}
 }
